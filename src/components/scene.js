@@ -1,5 +1,8 @@
+import id from './sound';
+
 const scene = {
-	empty: ''
+	empty: '',
+	id: id
 };
 
 export default scene;
