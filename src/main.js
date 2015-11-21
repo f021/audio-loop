@@ -2,6 +2,7 @@
 
   import soundcloud from './components/soundcloud';
   import analyser from './components/audio-node-analyser';
+  import draw from './components/visualization';
 
   // set up CORS for SoundCloud output to prevent
   // MediaElementAudioSource outputs zeroes due to CORS access restrictions
@@ -17,16 +18,16 @@
   sc.init()
   sc.addTrack()
   sc.play();
+  const b = draw();
 
-
-
-
-
-  document.body.appendChild(audio);
+  setInterval(function(){
+    b.draw(a.frequencies(), a.waveform());
+  }, 50);
+  // document.body.appendChild(audio);
 
   // };
 
   // window.onload = init;
-  module.exports = {sc, a};
+  module.exports = {sc, a, b};
 
 

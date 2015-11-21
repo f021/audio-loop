@@ -5,18 +5,26 @@
     const analyser = context.createAnalyser();
     const source = context.createMediaElementSource(audio);
 
-    source.connect(analyser);
+    // audio graf: source -> analaser -> destination
+
+    source.connect(analyser);  
     analyser.connect(context.destination);
 
     analyser.fftSize = 256;
 
     const bufferLength = analyser.frequencyBinCount;
 
-    const makeArr = _ => new Uint8Array(bufferLength);
+    const waveform = () => {
+      let arr = new Uint8Array(bufferLength);
+      analyser.getByteTimeDomainData(arr);
+      return arr;
+    };
 
-    const waveform = _ => analyser.getByteTimeDomainData(makeArr);
-
-    const frequencies = _ =>  analyser.getByteFrequencyData(makeArr);
+    const frequencies = () => {
+      let arr = new Uint8Array(bufferLength);
+      analyser.getByteFrequencyData(arr);
+      return arr;
+    };
 
     return {waveform, frequencies};
 
