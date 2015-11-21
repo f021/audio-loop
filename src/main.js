@@ -1,65 +1,32 @@
-'use strict';
+  'use strict';
 
-import scene from './components/scene';
+  import soundcloud from './components/soundcloud';
+  import analyser from './components/audio-node-analyser';
 
-console.log(scene.id);
-const $ = str => document.querySelector(str);
-const musicList = $('#music-list');
-const music = document.querySelector('audio');
-let source;
+  // set up CORS for SoundCloud output to prevent
+  // MediaElementAudioSource outputs zeroes due to CORS access restrictions
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes
 
-SC.initialize({
-  client_id: scene.id});
+  const audio = new Audio();
+  audio.crossOrigin = 'Anonymous';
+  audio.controls = 'true';
 
-// initiate auth popup
-// SC.connect().then(function() {
-//   return SC.get('/me');
-// }).then(function(me) {
-//   alert('Hello, ' + me.username);
-// });
- 
-// SC.get('/tracks', { genres: 'foo'}, tracks => {
-//   tracks.forEach(t => {
-//     console.log(t);
-//     let elm = document.createElement('li');
-//     musicList.appendChild(elm);
-//     elm.innerText = t.title;
-//   });
-// });
+  const a = analyser(audio);
 
-  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  const audioAnalyser = audioCtx.createAnalyser();
-  audioAnalyser.fftSize = 256;
-  
-  window.addEventListener('load', setup);
-
-  function setup(){
-    source = audioCtx.createMediaElementSource(music);
-    source.connect(audioAnalyser);
-    audioAnalyser.connect(audioCtx.destination);
-  }
-
-  SC.stream('/tracks/154418619', function(player){
-
-    console.log(player);
-    document.querySelector('audio').src = player.url;
-    $('audio').play();
-    // console.log(source);
-  });
-
-  // $('audio').addEventListener('progress', e => {console.log('ups')});
-
-// SC.get('/tracks/154418619', track => {
-//   // SC.oEmbed(track.permalink_url, $('#player'));
-//   // console.log(track);
-//   console.dir(track);
-//   document.querySelector('audio').src = track.stream_url;
-// });
+  const sc = soundcloud({ audio });
+  sc.init()
+  sc.addTrack()
+  sc.play();
 
 
 
-// console.dir(audioCtx);
 
-// const fn = a => {console.dir(audioAnalyser);};
 
-// setInterval(fn, 1000);
+  document.body.appendChild(audio);
+
+  // };
+
+  // window.onload = init;
+  module.exports = {sc, a};
+
+
