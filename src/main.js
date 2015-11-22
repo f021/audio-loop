@@ -30,7 +30,7 @@
 
   setInterval(function(){
     if (scene.ready()) {
-      draw.clear();
+      // draw.clear();
       draw.sun(scene.get());
       // draw.lines(scene.get());
     };
