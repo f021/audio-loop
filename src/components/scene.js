@@ -5,13 +5,20 @@ const scene = size => {
   return {
 
     add(elm) {
+      
       arr.push(elm);
       if (arr.length > size) {
         arr.shift();
       };
     },
 
-    get() { return arr; }
+    get() {
+      return arr;
+    },
+
+    ready() {
+      return arr.length === size;
+    }
 
   };
 

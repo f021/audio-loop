@@ -7,17 +7,13 @@ const createCanvas = () => {
   canvas.height = window.innerHeight;
   document.body.appendChild(canvas);
 
-  const drawWave = wave => {
-    let waveWidth = canvas.width/wave.length;
+  const drawWave = (wave,j) => {
+    let step = canvas.width/wave.length;
     ctx.beginPath();
-    ctx.strokeStyle = '#ffffff';
+    ctx.strokeStyle = `rgba(200,200,200, ${j/10})`;
     wave.forEach((w,i) => {
-      // console.log(w, waveWidth);
-      ctx.lineTo(waveWidth * i, w);
+      ctx.lineTo(i * step, w);
     });
-    // ctx.fillStyle = `rgba(200, 100, 100, .5)`;
-    // ctx.fill();
-    // ctx.stokeStyle = '#ff0000';
     ctx.stroke();
     ctx.closePath();
   };
@@ -55,10 +51,10 @@ const createCanvas = () => {
 
   const draw = data => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    data.forEach((wave,i) => {
+    data.forEach((line, i) => {
       ctx.setTransform(i, 0, 0, i/10, 0, 0);
-      drawWave(wave);
-      // ctx.resetTransform();
+      drawWave(line, i);
+      ctx.resetTransform();
     });
   };
 

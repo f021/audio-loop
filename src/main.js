@@ -2,8 +2,8 @@
 
   import soundcloud from './components/soundcloud';
   import analyser from './components/audio-node-analyser';
-  import draw from './components/visualization';
-  import scene from './components/scene'
+  import drawer from './components/visualization';
+  import scener from './components/scene'
 
   // set up CORS for SoundCloud output to prevent
   // MediaElementAudioSource outputs zeroes due to CORS access restrictions
@@ -11,29 +11,27 @@
 
   const audio = new Audio();
   audio.crossOrigin = 'Anonymous';
-  audio.controls = 'true';
+  // audio.controls = 'true';
 
-  const a = analyser(audio);
+  const analyse = analyser(audio);
 
-  const sc = soundcloud({ audio });
-  sc.init()
-  sc.addTrack()
-  sc.play();
-  const b = draw();
-  const s = scene(100);
+  const sound = soundcloud({ audio });
+  sound.init()
+  sound.addTrack()
+  sound.play();
+
+  const draw = drawer();
+  const scene = scener(60);
 
   setInterval(function(){
-    s.add(a.frequencies());
+    scene.add(analyse.frequencies());
+// scene.add(analyse.waveform());
   }, 10);
 
   setInterval(function(){
-    b.draw(s.get());
-  }, 1000/60 );
-  // document.body.appendChild(audio);
+    if( scene.ready()){ draw.draw(scene.get())};
+  }, 1000/60);
 
-  // };
-
-  // window.onload = init;
-  module.exports = {sc, a, b, scene};
+  // module.exports = {sc, a, b, scene};
 
 
