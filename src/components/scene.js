@@ -4,25 +4,18 @@ const scene = size => {
 
   return {
 
-    add(elm) {
-      
+    add(elm) {      
       arr.push(elm);
       if (arr.length > size) {
         arr.shift();
       };
     },
 
-    get() {
-      return arr;
-    },
+    get() { return arr; },
 
-    ready() {
-      return arr.length === size;
-    }
+    ready() { return arr.length === size; }
 
   };
-
-
 };
 
 export default scene;

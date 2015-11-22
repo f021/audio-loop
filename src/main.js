@@ -21,15 +21,19 @@
   sound.play();
 
   const draw = drawer();
-  const scene = scener(60);
+  const scene = scener(100);
 
   setInterval(function(){
-    scene.add(analyse.frequencies());
+    scene.add(analyse.frequencies().filter(e => e > 0));
 // scene.add(analyse.waveform());
   }, 10);
 
   setInterval(function(){
-    if( scene.ready()){ draw.draw(scene.get())};
+    if (scene.ready()) {
+      draw.clear();
+      draw.sun(scene.get());
+      // draw.lines(scene.get());
+    };
   }, 1000/60);
 
   // module.exports = {sc, a, b, scene};

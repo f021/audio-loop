@@ -6,60 +6,62 @@ const createCanvas = () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   document.body.appendChild(canvas);
+  // let z = 1;
 
-  const drawWave = (wave,j) => {
+  const waves = (wave,j) => {
     let step = canvas.width/wave.length;
     ctx.beginPath();
-    ctx.strokeStyle = `rgba(200,200,200, ${j/10})`;
+    ctx.strokeStyle = `rgba(200, 200, 200, .5)`;
     wave.forEach((w,i) => {
-      ctx.lineTo(i * step, w);
+      // ctx.strokeStyle = `rgba(200,200,${200/i*10}, 1)`;
+      ctx.lineTo(i*step, w);
+      // ctx.stroke();
     });
     ctx.stroke();
     ctx.closePath();
+    // z += 1;
   };
 
-  const test = (freq, wave) => {
+  const freqRect = freq => {
     let len = canvas.width/freq.length;
-    let lenW = canvas.width/wave.length;
-    // console.log(len);
 
-    // ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = `rgb(210,200,200)`;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
     freq.forEach((f,i) => {
     ctx.fillStyle = `rgb(${f/2}, 100, 100)`; 
       ctx.rect(i*len, canvas.height-f, len, f);
-      // ctx.fill();
       ctx.stroke();
       ctx.closePath();
     });
-    // translate(0, canvas.height/2)
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    // ctx.translate(0, 500);
-    ctx.beginPath();
-    wave.forEach((w,i) => {
-      ctx.lineTo(i*lenW,w);
-    });
-    // ctx.fillStyle = `rgba(200, 100, 100, .5)`;
-    // ctx.fill();
-    // ctx.stokeStyle = '#ff0000';
-    ctx.stroke();
-    ctx.closePath();
-    ctx.resetTransform();
   };
 
-  const draw = data => {
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const lines = data => {
+
     data.forEach((line, i) => {
       ctx.setTransform(i, 0, 0, i/10, 0, 0);
-      drawWave(line, i);
+      waves(line, i);
       ctx.resetTransform();
     });
   };
 
+  const clear = () => {
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
 
-  return {draw};
+  const sun = data => {
+    ctx.translate(canvas.width/2, canvas.height/2);
+    data.forEach((line,i) => {
+      // ctx.setTransform(5, 0, 0, 5, 0, 0);
+      ctx.rotate(1440/100 * Math.PI / 180);
+      // ctx.scale(.1,.1);
+      waves(line, i);
+      // ctx.resetTransform();
+    });
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+  }
+
+
+  return { lines, freqRect, sun, clear };
 
 };
 
