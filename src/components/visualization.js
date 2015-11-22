@@ -11,10 +11,10 @@ const createCanvas = () => {
   const waves = (wave,j) => {
     let step = canvas.width/wave.length;
     ctx.beginPath();
-    ctx.strokeStyle = `rgba(200, 200, 200, .5)`;
+    ctx.strokeStyle = `rgba(200, 200, 200, ${j/100})`;
     wave.forEach((w,i) => {
       // ctx.strokeStyle = `rgba(200,200,${200/i*10}, 1)`;
-      ctx.lineTo(i*step, w);
+      ctx.lineTo(i*2, w*2);
       // ctx.stroke();
     });
     ctx.stroke();
