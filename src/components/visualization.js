@@ -13,7 +13,7 @@ const createCanvas = () => {
     ctx.strokeStyle = `rgba(200, 200, 200, ${j/100})`;
     wave.forEach((w,i) => {
       // ctx.strokeStyle = `rgba(200,200,${200/i*10}, 1)`;
-      ctx.lineTo(i * step, w*(i+1));
+      ctx.lineTo(i * step, w/(i+1));
       // ctx.stroke();
     });
     ctx.stroke();
