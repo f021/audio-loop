@@ -8,17 +8,18 @@ const createCanvas = () => {
   document.body.appendChild(canvas);
 
   const drawWave = wave => {
-    let lenW = canvas.width/wave.length;
+    let waveWidth = canvas.width/wave.length;
     ctx.beginPath();
+    ctx.strokeStyle = '#ffffff';
     wave.forEach((w,i) => {
-      ctx.lineTo(i*lenW,w);
+      // console.log(w, waveWidth);
+      ctx.lineTo(waveWidth * i, w);
     });
     // ctx.fillStyle = `rgba(200, 100, 100, .5)`;
     // ctx.fill();
     // ctx.stokeStyle = '#ff0000';
     ctx.stroke();
     ctx.closePath();
-    ctx.resetTransform();
   };
 
   const test = (freq, wave) => {
@@ -53,10 +54,11 @@ const createCanvas = () => {
   };
 
   const draw = data => {
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     data.forEach((wave,i) => {
-      ctx.setTransform(1+i/10, 0, 0, 1+i/1, 0, 0);
+      ctx.setTransform(i, 0, 0, i/10, 0, 0);
       drawWave(wave);
-      ctx.resetTransform();
+      // ctx.resetTransform();
     });
   };
 

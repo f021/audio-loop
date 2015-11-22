@@ -20,10 +20,10 @@
   sc.addTrack()
   sc.play();
   const b = draw();
-  const s = scene(10);
+  const s = scene(100);
 
   setInterval(function(){
-    s.add(a.frequencies(), a.waveform());
+    s.add(a.frequencies());
   }, 10);
 
   setInterval(function(){
