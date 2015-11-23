@@ -1,11 +1,13 @@
   
+  // analyze <audio>
+
   const audioAnalyse = (audio) => {
   
     const context = new AudioContext();
     const analyser = context.createAnalyser();
     const source = context.createMediaElementSource(audio);
 
-    // audio graf: source -> analaser -> destination
+    // audio graph: source -> analaser -> destination
 
     source.connect(analyser);  
     analyser.connect(context.destination);
@@ -26,7 +28,7 @@
       return arr;
     };
 
-    return {waveform, frequencies};
+    return { waveform, frequencies };
 
   };
 
