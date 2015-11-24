@@ -21,4 +21,35 @@ const li = state => {
 };
 
 
-export default li;
+ const renderInfo = state => {
+  
+  let elm = document.querySelector('#footer');
+  
+  if (!elm) {
+    elm = document.createElement('div');
+    elm.id = 'footer';
+    document.body.appendChild(elm);
+  };
+
+  elm.innerHTML = `
+    <ul class="soundtrack-info">
+      <li class='user'>
+        <a href='${state.user.permalink_url}'>
+          ${state.user.username}
+        </a>
+      </li>
+      <li class='title'>
+        <a href='${state.permalink_url}'>
+          <p>${state.title}</p>
+        </a>
+      </li>
+      <li class='soundcloud-logo'>
+        <a href='${state.permalink_url}'>
+          <img src='./img/logo_white.png'>
+        </a>
+      </li>
+    </ul>`;
+
+ }
+
+export { renderInfo, li };

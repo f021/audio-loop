@@ -1,7 +1,7 @@
 'use strict';
 
 import clientId from './soundCloudID';
-import xhr from './xhr';
+// import xhr from './xhr';
 
 const resolveStr = `http://api.soundcloud.com/resolve?url='`;
 
@@ -13,12 +13,25 @@ const soundcloud = (state) => ({
     });
   },
 
-  addTrack(trackId) {
+  addTrack(trackID, render) {
     SC.get('/tracks/17556576', track => {
       console.log(track);
       state.audio.src = `${track.stream_url}?client_id=${clientId}`;
-      // state.audio.play();
+      render(track);
     });
+  },
+
+  JSON: {
+
+    byTrack(trackID) {
+      SC.get(`/tracks/${trackID}`, track => {
+        console.log( JSON.stringify(track));
+      })
+    },
+
+    byURL(url) {
+      xhr.get(`${resolveStr}${url}&client_id=${clientId}`, e=> console.log(e));
+    }
   },
 
   play() { state.audio.play(); },
@@ -27,9 +40,6 @@ const soundcloud = (state) => ({
     SC.get('/tracks', target, tracks => callback(tracks));
   },
 
-  resolve(url) {
-      xhr.get(`${resolveStr}${url}&client_id=${clientId}`, e=> console.log(e));
-  }
 
 });
 

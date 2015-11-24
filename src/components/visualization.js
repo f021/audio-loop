@@ -14,18 +14,14 @@ const createCanvas = () => {
     ctx.beginPath();
     ctx.strokeStyle = `rgba(200, 200, 200, ${j/10})`;
     wave.forEach((w,i) => {
-      // ctx.strokeStyle = `rgba(200,200,${200/i*10}, 1)`;
       ctx.lineTo(i, w);
-      // ctx.stroke();
     });
     ctx.stroke();
-    ctx.closePath();
+    // ctx.closePath();
   };
 
   const freqRect = freq => {
     let len = canvas.width/freq.length;
-
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
     freq.forEach((f,i) => {
     ctx.fillStyle = `rgb(${f/2}, 100, 100)`; 
@@ -36,7 +32,6 @@ const createCanvas = () => {
   };
 
   const lines = data => {
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
     data.forEach((line, i) => {
       ctx.setTransform(i, 0, 0, i/10, 0, 0);
       waves(line, i);
@@ -44,21 +39,22 @@ const createCanvas = () => {
     });
   };
 
+  const clear = () => {
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  };
+
 
   const sun = (data, gap) => {
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.translate(canvas.width/2, canvas.height/2);
     data.forEach((line,i) => {
-      // ctx.setTransform(.5, 0, 0, .5, 0, 0);
       ctx.rotate(gap/100 * Math.PI / 180);
       waves(line, i);
-      // ctx.resetTransform();
     });
     ctx.setTransform(1, 0, 0, 1, 0, 0);
   }
 
 
-  return { lines, freqRect, sun };
+  return { lines, freqRect, sun, clear };
 
 };
 
