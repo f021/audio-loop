@@ -2,7 +2,6 @@
 
 const li = state => {
 
-  // const rendTag = (tag, value) => `<${tag}></${tag}>`;
 
   if (state.kind === 'track') {
   
@@ -35,12 +34,12 @@ const li = state => {
     <ul class="soundtrack-info">
       <li class='user'>
         <a href='${state.user.permalink_url}'>
-          ${state.user.username}
+          ${state.user.username}:
         </a>
       </li>
       <li class='title'>
         <a href='${state.permalink_url}'>
-          <p>${state.title}</p>
+          ${state.title}
         </a>
       </li>
       <li class='soundcloud-logo'>

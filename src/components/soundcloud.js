@@ -1,7 +1,7 @@
 'use strict';
 
 import clientId from './soundCloudID';
-// import xhr from './xhr';
+import xhr from './xhr';
 
 const resolveStr = `http://api.soundcloud.com/resolve?url='`;
 
@@ -14,7 +14,7 @@ const soundcloud = (state) => ({
   },
 
   addTrack(trackID, render) {
-    SC.get('/tracks/17556576', track => {
+    SC.get(`/tracks/${trackID}`, track => {
       console.log(track);
       state.audio.src = `${track.stream_url}?client_id=${clientId}`;
       render(track);

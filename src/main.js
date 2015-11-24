@@ -9,14 +9,13 @@
   import sleep from './components/sleep';
 
 
-  // const test = 'https://soundcloud.com/max-richter/this-bitter-earth-on-the';
 
   // set up CORS for SoundCloud output to prevent
   // MediaElementAudioSource outputs zeroes due to CORS access restrictions
   // https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes
 
 
-  const draw = drawer(); // initialize canvas
+  const draw = drawer();
 
   const audio = new Audio();
   audio.crossOrigin = 'Anonymous';
@@ -25,7 +24,7 @@
 
   const sound = soundcloud({ audio });
   sound.init()
-  sound.addTrack(17556576, render);
+  sound.addTrack(81253937, render);
 
 
   function render(track) {
@@ -34,7 +33,8 @@
     renderInfo(track);
 
     const scene = scener(100);
-    let gap = 5672;
+    let gap = 1;
+    let lines = 0;
 
     const listen = () => {
       setInterval(() => { 
@@ -47,14 +47,19 @@
       setInterval(() => {
         if (scene.ready()) {
           draw.clear();
-          draw.sun(scene.get(), gap);
+          draw.sun(scene.get().slice(lines), gap);
+          gap += .2*5;
         };
       }, 1000/60);
     };
 
+    setInterval(()=> {
+      lines = Math.ceil(Math.random()*100)}
+      , 10000);
+
     const activity = sleep({
-      sleepAfter: 10000,
-      step: 100,
+      sleepAfter: 5000,
+      step: 1000,
       elm: document.querySelector('#footer'),
       lastActivity: new Date().valueOf()
     });
