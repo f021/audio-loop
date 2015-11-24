@@ -8,21 +8,22 @@ html, body {
 
 #footer {
   display: flex;
-  background: #000000;
   position: fixed;
   bottom: 0;
   width: 100%;
   display: flex;
   justify-content: center;
+  padding: 2% 0;
+  transition: all 2s ease-out;
 }
 
 .soundtrack-info {
-  opacity: .7;
   list-style-type: none;
-  padding: 0;
+  padding: 2em 3em;
   margin: 0;
   width: 50%;
   line-height: 1em;
+  background: rgba(205, 205, 205, 0.5);
 }
 
 .soundtrack-info li {
@@ -31,6 +32,7 @@ html, body {
 }
 
 .user {
+  margin-bottom: .5em;
   font-size: 1em;
 }
 
@@ -52,5 +54,6 @@ html, body {
 }
 
 .soundcloud-logo {
+  margin-top: .5em;
   text-align: right;
 }

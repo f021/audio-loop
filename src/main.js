@@ -4,7 +4,7 @@
   import analyser from './components/audio-node-analyser';
   import drawer from './components/visualization';
   import scener from './components/scene';
-  import { renderInfo, li } from './components/template';
+  import { renderInfo } from './components/template';
   import playlist from './components/playlist';
   import sleep from './components/sleep';
 
@@ -26,11 +26,11 @@
   const sound = soundcloud({ audio });
   sound.init()
   sound.addTrack(17556576, render);
-  sound.play();
 
 
   function render(track) {
 
+    sound.play();
     renderInfo(track);
 
     const scene = scener(100);
@@ -52,16 +52,16 @@
       }, 1000/60);
     };
 
-    listen();
-    painter();
-
     const activity = sleep({
-      sleepAfter: 5000,
+      sleepAfter: 10000,
       step: 100,
       elm: document.querySelector('#footer'),
       lastActivity: new Date().valueOf()
     });
 
+
+    listen();
+    painter();
     activity.start();
 
   };

@@ -5,9 +5,14 @@ const createCanvas = () => {
 
   const canvas = document.createElement('canvas');
   const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  setSize();
   document.body.appendChild(canvas);
+
+
+  function setSize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
 
   const waves = (wave,j) => {
     let step = canvas.width/wave.length;
@@ -17,7 +22,6 @@ const createCanvas = () => {
       ctx.lineTo(i, w);
     });
     ctx.stroke();
-    // ctx.closePath();
   };
 
   const freqRect = freq => {
@@ -51,7 +55,11 @@ const createCanvas = () => {
       waves(line, i);
     });
     ctx.setTransform(1, 0, 0, 1, 0, 0);
-  }
+  };
+
+  window.addEventListener('resize', () => {
+    setSize();
+  });
 
 
   return { lines, freqRect, sun, clear };
