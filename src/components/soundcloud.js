@@ -15,7 +15,6 @@ const soundcloud = (state) => ({
 
   addTrack(trackID, render) {
     SC.get(`/tracks/${trackID}`, track => {
-      console.log(track);
       state.audio.src = `${track.stream_url}?client_id=${clientId}`;
       render(track);
     });
