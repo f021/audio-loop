@@ -33,7 +33,7 @@
     renderInfo(track);
 
     const scene = scener(100);
-    let gap = 1440;
+    let gap = 400;
     let lines = 0;
 
     const listen = () => {
@@ -44,19 +44,19 @@
     };
 
     const painter = () => {
-      setInterval(() => {
+      window.requestAnimationFrame(() => {
         if (scene.ready()) {
           draw.clear();
           draw.sun(scene.get().slice(lines), gap);
           gap += .2;
         };
-      }, 1000/60);
+      });
     };
 
     setInterval(()=> {
       lines = Math.round(Math.random()*(100-10));
       console.log(`lines: ${lines}\ngap: ${gap}`)
-    }, 5000);
+    }, 1000/2);
 
     const activity = sleep({
       sleepAfter: 5000,
