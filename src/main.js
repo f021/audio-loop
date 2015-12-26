@@ -24,7 +24,7 @@
 
   const sound = soundcloud({ audio });
   sound.init()
-  sound.addTrack(81058008, render);
+  sound.addTrack(81253937, render);
 
 
   function render(track) {
@@ -32,7 +32,7 @@
     sound.play();
     renderInfo(track);
 
-    const scene = scener(100);
+    const scene = scener(80);
     let gap = 400;
     let lines = 0;
 
@@ -46,16 +46,16 @@
     const painter = () => {
       if (scene.ready()) {
         draw.clear();
-        draw.sun(scene.get().slice(lines), gap);
+        draw.sun(scene.get().slice(0), gap);
         gap += .2;
       };
       requestAnimationFrame(painter);
     };
 
-    setInterval(()=> {
-      lines = Math.round(Math.random()*(100-10));
-      console.log(`lines: ${lines}\ngap: ${gap}`)
-    }, 1000/2);
+    // setInterval(()=> {
+    //   lines = Math.round(Math.random()*(100-10));
+    //   console.log(`lines: ${lines}\ngap: ${gap}`)
+    // }, 1000/2);
 
     const activity = sleep({
       sleepAfter: 5000,
