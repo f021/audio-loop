@@ -44,13 +44,12 @@
     };
 
     const painter = () => {
-      window.requestAnimationFrame(() => {
-        if (scene.ready()) {
-          draw.clear();
-          draw.sun(scene.get().slice(lines), gap);
-          gap += .2;
-        };
-      });
+      if (scene.ready()) {
+        draw.clear();
+        draw.sun(scene.get().slice(lines), gap);
+        gap += .2;
+      };
+      requestAnimationFrame(painter);
     };
 
     setInterval(()=> {
@@ -67,7 +66,7 @@
 
 
     listen();
-    painter();
+    requestAnimationFrame(painter);
     activity.start();
 
   };
